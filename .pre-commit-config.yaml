@@ -1,0 +1,164 @@
+---
+repos:
+
+  - repo: git@github.com:humitos/mirrors-autoflake.git
+    rev: master
+    hooks:
+      - id: autoflake
+        args: [
+          '--in-place',
+          '--remove-all-unused-imports',
+          '--remove-unused-variable',
+        ]
+
+  - repo: https://github.com/asottile/seed-isort-config
+    rev: master
+    hooks:
+      - id: seed-isort-config
+
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: master
+    hooks:
+      - id: isort
+        additional_dependencies: ['toml']
+
+  - repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: master
+    hooks:
+      # # Run flake8
+      # - id: flake8
+      #   additional_dependencies: [
+      #     # CLEAN CODE
+      #     # Finding likely bugs and design problems in your program.
+      #     flake8-bugbear,
+      #     # Check for python builtins being used as variables or parameters.
+      #     flake8-builtins,
+      #     # Helps you write better list/set/dict comprehensions.
+      #     flake8-comprehensions,
+      #     # Plugin to find commented out or dead code.
+      #     flake8-eradicate,
+      #     # Check for FIXME, TODO and other temporary developer notes.
+      #     flake8-fixme,
+      #     # Extension that implements misc. lints.
+      #     flake8-pie,
+      #     # Check for print statements in python files.
+      #     flake8-print,
+      #     # Spellcheck variables, classnames, comments, docstrings etc.
+      #     # flake8-spellcheck,
+      #     # Check that indexed parameters are used in strings.
+      #     flake8-string-format,
+      #     # DOCUMENTATIONS
+      #     # Include checks provided by pep257.
+      #     flake8-docstrings,
+      #     # IMPORTS
+      #     # Extension that helps you write tidier imports.
+      #     flake8-tidy-imports,
+      #     # SECURITY
+      #     # Tool for encouraging best coding practices
+      #     # and helping ensure we're writing secure Python code.
+      #     dlint,
+      #     # Automated security testing using bandit.
+      #     flake8-bandit,
+      #     # Extension for flake8 that validates cognitive functions complexity.
+      #     flake8-cognitive-complexity,
+      #     # Plugin for validation of function parameters (length, complexity, etc).
+      #     flake8-functions,
+      #     # Plugin to validate expressions complexity.
+      #     astpretty, flake8-expression-complexity,
+      #     # A flake8 extension that checks classes attributes order.
+      #     # typing_extensions, flake8-class-attributes-order,
+      #     # Flake8 plugin to validate annotations complexity.
+      #     flake8-annotations-complexity,
+
+      #     darglint,
+      #   ]
+      # Prevent giant files from being committed
+      - id: check-added-large-files
+      # Simply check whether the files parse as valid python
+      - id: check-ast
+      # Forbid files which have a UTF-8 byte-order marker
+      - id: check-byte-order-marker
+      # Require literal syntax when initializing empty or zero Python builtin types
+      - id: check-builtin-literals
+      # Check for files that would conflict in case-insensitive filesystems
+      - id: check-case-conflict
+      # Checks a common error of defining a docstring after code
+      - id: check-docstring-first
+      # Ensures that (non-binary) executables have a shebang
+      - id: check-executables-have-shebangs
+      # Check json files for parseable syntax
+      - id: check-json
+      # Set a standard for formatting JSON files
+      - id: pretty-format-json
+      # Check for files that contain merge conflict strings
+      - id: check-merge-conflict
+      # Check for symlinks which do not point to anything
+      - id: check-symlinks
+      # Check toml files for parseable syntax
+      - id: check-toml
+      # Ensure that links to vcs websites are permalinks
+      - id: check-vcs-permalinks
+      # Check xml files for parseable syntax
+      - id: check-xml
+      # Check yaml files for parseable syntax
+      - id: check-yaml
+      # Check for debugger imports and py37+ `breakpoint()` calls in python source
+      - id: debug-statements
+      # Detect *your* aws credentials from the aws cli credentials file
+      # - id: detect-aws-credentials
+      # Detect the presence of private keys
+      - id: detect-private-key
+      # Replace double quoted strings with single quoted strings
+      # - id: double-quote-string-fixer
+      # Ensure that a file is either empty, or ends with one newline
+      - id: end-of-file-fixer
+      # Sort the lines in specified files (defaults to alphabetical). You must
+      # provide list of target files as input in your .pre-commit-config.yaml file
+      - id: file-contents-sorter
+      # Prevent addition of new git submodules
+      - id: forbid-new-submodules
+      # Replace or checks mixed line ending
+      - id: mixed-line-ending
+      # This verifies that test files are named correctly
+      # - id: name-tests-test
+      # Don't commit to branch
+      # - id: no-commit-to-branch
+      # Sort entries in requirements.txt
+      - id: requirements-txt-fixer
+      # Sort simple YAML files which consist only of top-level keys,
+      # preserving comments and blocks
+      - id: sort-simple-yaml
+      # Trim trailing whitespace
+      - id: trailing-whitespace
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: master
+    hooks:
+      # Shell scripts conform to shellcheck
+      - id: shellcheck
+      # Non-executable shell script filename ends in .sh
+      - id: script-must-have-extension
+      # Executable shell script omits the filename extension
+      - id: script-must-not-have-extension
+
+  # - repo: https://github.com/asottile/dead
+  #   rev: master
+  #   hooks:
+  #   - id: dead
+
+  # - repo: https://github.com/PyCQA/pydocstyle
+  #   rev: master
+  #   hooks:
+  #   - id: pydocstyle
+      # args:
+      # - --ignore=D100,D203,D405
+      # # or multiline
+      # - |-
+      #       --select=
+      #       D101,
+      #       D2

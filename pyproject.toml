@@ -1,0 +1,132 @@
+[tool.poetry]
+name = "buglog"
+version = "0.1.0"
+description = ""
+authors = ["lainiwa <kirrik96@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+mistune = "^0.8.4"
+docutils = "^0.16"
+markdown2 = "^2.3.9"
+beautifulsoup4 = "^4.9.1"
+markdown = "^3.2.2"
+pydantic = {version = "^1.5.1", extras = ["typing_extensions"]}
+xdg = "^4.0.1"
+httpx = "^0.13.3"
+html5lib = "^1.1"
+lxml = "^4.5.1"
+html5-parser = "^0.4.9"
+AdvancedHTMLParser = "^9.0.1"
+readchar = "^2.0.1"
+colorama = "^0.4.3"
+termcolor = "^1.1.0"
+blessings = "^1.7"
+prompt_toolkit = "^3.0.5"
+timefhuman = "^0.0.5"
+numpy = "^1.19.0"
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.5.1"
+black = "^19.10b0"
+isort = { version = "^4.3.21", extras = ["pyproject"] }
+mypy = "^0.782"
+ipython = "^7.16.1"
+flakehell = "^0.5.0"
+dlint = "^0.10.3"  # Encourage best practices + security
+flake8-bandit = "^2.1.2"  # Check security
+flake8-bugbear = "^20.1.4"  # Likely bugs and design problems
+flake8-builtins = "^1.5.3"  # Builtins used as variables or parameters
+flake8-coding = "^1.3.2"
+flake8-cognitive-complexity = "^0.0.2"  # Functions' cognitive complexity
+flake8-comprehensions = "^3.2.3"  # Better list/set/dict comprehensions
+flake8-debugger = "^3.2.1"  # Check for debug statements
+flake8-docstrings = "^1.5.0"  # Checks provided by pep257
+flake8-eradicate = "^0.4.0"  # Commented out or dead code
+flake8-executable = "^2.0.3"  # Executable flags and shebangs
+flake8-expression-complexity = "^0.0.8"  # Annotations' complexity
+flake8-fixme = "^1.1.1"  # Check for FIXME, TODO etc notes
+flake8-functions = "^0.0.4"  # Function parameters (length, complexity, etc)
+flake8-isort = "^3.0.0"  # Import order via isort
+flake8-mutable = "^1.2.0"  # Check for mutable default arguments
+flake8-pep3101 = "^1.3.0"  # Ceck for old string formatting
+flake8-pie = "^0.5.0"  # Misc. lints
+flake8-print = "^3.1.4"  # Print statements
+flake8-string-format = "^0.3.0"  # Check .format()
+flake8-tidy-imports = "^4.1.0"
+flake8-alfred = "^1.1.1"  # Check for unsafe/obsolete symbols
+flake8-annotations-complexity = "^0.0.5"  # Validate annotations complexity
+flake8-broken-line = "^0.2.0"  # Don't break the line
+pep8-naming = "^0.11.1"  # Check naming conventions
+
+[tool.flakehell]
+format = "colored"  # colored/grouped/stat/json/gitlab
+show_source = true  # show line of source code in output
+
+# statistics = false
+# doctests = true
+# enable_extensions = "G"
+
+max_line_length            = 79
+max_complexity             = 6     # mccabe
+max_annotations_complexity = 4     # flake8-annotations-complexity
+no_accept_encodings        = true  # flake8-coding
+max_expression_complexity  = 7     # flake8-expression-complexity
+
+# import_order_style = "google"  # flake8-import-order
+# base = "https://raw.githubusercontent.com/life4/flakehell/master/pyproject.toml"
+# exclude = ["example.py"]
+# inline_quotes = '"'
+
+# list of plugins and rules for them
+[tool.flakehell.plugins]
+dlint      = ["+*"]
+# mccabe     = ["+*"]
+"flake8-*" = ["+*"]
+flake8-eradicate  = ["-*"]
+flake8-docstrings = ["-*"]
+pyflakes          = ["-*"]
+flake8-print = ["-*"]
+flake8-pie = ["-*"]
+flake8-debugger = ["-*"]
+flake8-bandit = ["-*"]
+# flake8-bugbear = ["-*"]
+flake8-cognitive-complexity = ["-*"]
+# flake8-annotations-complexity = ["-*"]
+
+[tool.poetry.scripts]
+bug = 'buglog.main:app'
+[tool.isort]
+# https://github.com/timothycrosley/isort/wiki/isort-Settings
+line_length = 79
+atomic = true
+include_trailing_comma = true
+indent = '    '
+multi_line_output = 3
+length_sort = true
+
+[tool.black]
+# pre-commit run black --help
+line-length = 79
+verbose = true
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
