@@ -161,12 +161,19 @@ def print_bugs_and_errors(
 def dump_bug(bug: Bug, file_name: Union[Path, str]) -> None:
     path = XDG_DATA_HOME / __package__ / file_name
 
+    try:
+        with open(path, "r") as fin:
+            prev_dumps = json.load(fin)
+    except FileNotFoundError:
+        prev_dumps = []
+
     with open(path, "w") as fout:
-        json.dump(bug.dict(), fout)
+        json.dump(prev_dumps + [bug.dict()], fout)
 
     t = Terminal()
+    verb = "Added" if prev_dumps else "Wrote"
     print(
-        t.bold_green(f"Wrote {bug.__class__.__name__} into a file: ")
+        t.bold_green(f"{verb} {bug.__class__.__name__} into a file: ")
         + t.on_bright_black(f"{path}")
     )
 
