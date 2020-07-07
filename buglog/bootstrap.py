@@ -1,4 +1,5 @@
 import tarfile
+import platform
 from io import BytesIO
 from shutil import copyfile
 from pathlib import Path
@@ -15,7 +16,14 @@ def ensure_fzf() -> None:
     fzf_path = data_dir / "fzf"
 
     if not fzf_path.exists():
-        asset_url = "https://github.com/junegunn/fzf-bin/releases/download/0.21.1/fzf-0.21.1-linux_amd64.tgz"
+        ver = "0.21.1"
+        system = platform.system().lower()
+        machine = platform.machine()
+        arch = {"x86_64": "amd64"}.get(machine, machine)
+
+        asset_url = "https://github.com/junegunn/fzf-bin/releases/download"
+        asset_url += f"/{ver}/fzf-{ver}-{system}_{arch}.tgz"
+
         response = httpx.get(asset_url)
 
         with tarfile.open(fileobj=BytesIO(response.content)) as tar:
