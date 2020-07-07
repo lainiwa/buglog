@@ -17,6 +17,7 @@ blessings = "^1.7"
 prompt_toolkit = "^3.0.5"
 timefhuman = "^0.0.5"
 click = "^7.1.2"
+importlib-metadata = {version = "^1.7.0", python = "<3.8"}
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.5.1"
