@@ -12,7 +12,6 @@ pydantic = {version = "^1.5.1", extras = ["typing_extensions"]}
 xdg = "^4.0.1"
 httpx = "^0.13.3"
 readchar = "^2.0.1"
-termcolor = "^1.1.0"
 blessings = "^1.7"
 prompt_toolkit = "^3.0.5"
 timefhuman = "^0.0.5"

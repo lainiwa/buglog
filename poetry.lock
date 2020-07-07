@@ -1210,7 +1210,7 @@ version = "2.0.1"
 pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "ANSII Color formatting for output in terminal."
 name = "termcolor"
 optional = false
@@ -1357,7 +1357,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "7b6795679472f9245524a5e6de7a2aa5ba1acd14bceeae0671090b669b581bc4"
+content-hash = "58376395b999d145a2e8ebaaa9ee2e580a7189f0fc9a69a1964b951cc829b8ab"
 python-versions = "^3.7"
 
 [metadata.files]
