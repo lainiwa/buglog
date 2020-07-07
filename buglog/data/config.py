@@ -5,8 +5,18 @@ class Bug(BaseModel):
     pass
 
 
-class Dead(BaseModel):
-    pass
+class SideBridge(Bug):
+    """Excercise: a side bridge"""
+
+    reps: int = Field(1, title="Repetitions", gt=0)
+    times: int = Field(..., gt=0)
+
+
+class Squats(Bug):
+    """Excercise: squats"""
+
+    reps: int = Field(1, title="Repetitions", gt=0)
+    times: int = Field(..., gt=0)
 
 
 class Drink(Bug):

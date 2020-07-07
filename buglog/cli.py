@@ -1,9 +1,6 @@
-import os
 import sys
 import json
-import tempfile
 import itertools
-import subprocess
 from types import ModuleType
 from typing import Any, Dict, Type, Tuple, Union, Iterable, Iterator
 from pathlib import Path
@@ -12,17 +9,19 @@ from subprocess import PIPE, Popen
 from importlib.util import module_from_spec, spec_from_loader
 from importlib.machinery import SourceFileLoader
 
+import click
 from bs4 import BeautifulSoup  # type: ignore
 from xdg import XDG_DATA_HOME, XDG_CONFIG_HOME
 from blessings import Terminal  # type: ignore
 from docutils.core import publish_parts
+from docutils.utils import SystemMessage
 from pydantic.error_wrappers import ValidationError
 
+from buglog.utils import split_by_func
 from buglog.prompt import (
     date_to_filename,
-    user_keep_toggle,
     edit_filename_date,
-    user_edit_write_cancel,
+    user_read_character,
 )
 from buglog.bootstrap import ensure_fzf, ensure_config
 
@@ -142,22 +141,6 @@ def rst_to_bugs(text: str) -> Iterator[Union[Bug, ValidationError]]:
             yield e
 
 
-def read_user_writing(template_text: str) -> str:
-    """Interactively input bugs."""
-    try:
-        # Create temporary file and write prompts to it
-        with tempfile.NamedTemporaryFile(delete=False) as tf:
-            tf.write(template_text.encode())
-        # Open the file with vim
-        subprocess.call([os.environ.get("EDITOR", "vi"), tf.name])
-        # Parse the edited file and extract the Bugs
-        with open(tf.name, "r") as tf_:
-            return tf_.read()
-
-    finally:
-        os.remove(tf.name)
-
-
 def print_bugs_and_errors(
     bugs: Iterable[Bug], errs: Iterable[ValidationError]
 ) -> None:
@@ -175,51 +158,71 @@ def print_bugs_and_errors(
             print(t.bold_red("✘ ") + t.red(f"{title}.{loc}: {msg}"))
 
 
-def db_path() -> Path:
-    """Get path to current database."""
-    time_str = datetime.now().isoformat("_", "seconds")
-    return XDG_DATA_HOME / __package__ / f"{time_str}.json"
-
-
-def dump_bugs(path: Union[Path, str], bugs: Iterable[Bug]) -> None:
-    """Dump Bugs into a JSON file."""
-    data = {bug.__class__.__name__: bug.dict() for bug in bugs}
+def dump_bug(bug: Bug, file_name: Union[Path, str]) -> None:
+    path = XDG_DATA_HOME / __package__ / file_name
 
     with open(path, "w") as fout:
-        json.dump(data, fout)
+        json.dump(bug.dict(), fout)
+
+    t = Terminal()
+    print(
+        t.bold_green(f"Wrote {bug.__class__.__name__} into a file: ")
+        + t.on_bright_black(f"{path}")
+    )
 
 
 def cli() -> None:
-    t = Terminal()
-
+    # Pick bugs via fzf
     picked_bugs = list(fuzzy_pick_bug())
     if not picked_bugs:
         return
 
+    # Parsing the bugs
     rst_text = None
     while True:
         # Create .rst template from the list of picked bugs
         if rst_text is None:
             rst_text = bugs_to_rst(picked_bugs)
         # Let user fill the template
-        rst_text = read_user_writing(rst_text)
+        rst_text = click.edit(rst_text)
+        # If the user did not provide any input (either '' or None) then exit
+        if not rst_text:
+            return
         # Parse filled in template into bugs and errors
-        bugs_or_errs = list(rst_to_bugs(rst_text))
-        only_errs = [
-            item for item in bugs_or_errs if isinstance(item, ValidationError)
-        ]
-        only_bugs = [
-            item
-            for item in bugs_or_errs
-            if not isinstance(item, ValidationError)
-        ]
+        try:
+            items = list(rst_to_bugs(rst_text))
+        except SystemMessage:
+            char = user_read_character(
+                "Could not parse text.", "[e]dit/[c]ancel: ",
+            )
+            if char == "e":
+                print()
+                continue
+            elif char == "c":
+                return
+        only_errs, only_bugs = split_by_func(
+            items=items, predicate=lambda item: isinstance(item, Exception),
+        )
+        # Print the parse results
+        print_bugs_and_errors(bugs=only_bugs, errs=only_errs)
         # If no problems encountered then go further
         if not only_errs:
             break
-        # Print the parse results
-        print_bugs_and_errors(bugs=only_bugs, errs=only_errs)
-
-        char = user_edit_write_cancel()
+        # else if no valid bugs could be parsed from the text
+        if not only_bugs:
+            char = user_read_character(
+                "No meaningfull bugs found.", "[e]dit/[c]ancel: ",
+            )
+            if char == "e":
+                print()
+                continue
+            elif char == "c":
+                return
+        # else put the options to the user
+        char = user_read_character(
+            "Some errors found. Watcha gonna do?",
+            "[e]dit/[w]rite valid/[c]ancel: ",
+        )
         if char == "e":
             print()
             continue
@@ -228,30 +231,16 @@ def cli() -> None:
         elif char == "c":
             return
 
-    char = user_keep_toggle()
-
+    # Let the user choose the appropriate dates
+    char = user_read_character("[K]eep current date or [t]oggle: ")
     for bug in only_bugs:
-        bug_name = bug.__class__.__name__
-        data = bug.dict()
-
         if char == "k":
             file_name = date_to_filename(
-                bug_name=bug_name, date=datetime.now()
+                bug_name=bug.__class__.__name__, date=datetime.now()
             )
-        elif char == "t":
-            file_name = edit_filename_date(bug_name=bug_name)
         else:
-            raise AssertionError()
-
-        path = XDG_DATA_HOME / __package__ / file_name
-
-        with open(path, "w") as fout:
-            json.dump(data, fout)
-
-        print(
-            t.bold_green(f"Wrote {bug_name} into a file: ")
-            + t.on_bright_black(f"{path}")
-        )
+            file_name = edit_filename_date(bug_name=bug.__class__.__name__)
+        dump_bug(bug=bug, file_name=file_name)
 
 
 if __name__ == "__main__":

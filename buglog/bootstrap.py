@@ -3,15 +3,15 @@ from io import BytesIO
 from shutil import copyfile
 from pathlib import Path
 
-import xdg
 import httpx
-from xdg import XDG_CONFIG_HOME
+from xdg import XDG_DATA_HOME, XDG_CONFIG_HOME
 
 import buglog
 
 
 def ensure_fzf() -> None:
-    data_dir = xdg.XDG_DATA_HOME / __package__
+    """Create data folder and download fzf binary into it, if not yet."""
+    data_dir = XDG_DATA_HOME / __package__
     fzf_path = data_dir / "fzf"
 
     if not fzf_path.exists():
@@ -23,6 +23,7 @@ def ensure_fzf() -> None:
 
 
 def ensure_config() -> None:
+    """Create config folder and copy example config into it, if not yet."""
     example = Path(buglog.__file__).parents[0] / "data" / "config.py"
     conf_dir = XDG_CONFIG_HOME / __package__
     conf_path = conf_dir / "config.py"
