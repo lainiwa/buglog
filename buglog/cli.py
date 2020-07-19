@@ -24,6 +24,7 @@ from buglog.prompt import (
     user_read_character,
 )
 from buglog.bootstrap import ensure_fzf, ensure_config
+from contextlib import suppress
 
 
 def import_config() -> ModuleType:
@@ -161,11 +162,10 @@ def print_bugs_and_errors(
 def dump_bug(bug: Bug, file_name: Union[Path, str]) -> None:
     path = XDG_DATA_HOME / __package__ / file_name
 
-    try:
+    prev_dumps = []
+    with suppress(FileNotFoundError):
         with open(path, "r") as fin:
             prev_dumps = json.load(fin)
-    except FileNotFoundError:
-        prev_dumps = []
 
     with open(path, "w") as fout:
         json.dump(prev_dumps + [bug.dict()], fout)

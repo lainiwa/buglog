@@ -7,6 +7,7 @@ from timefhuman import timefhuman  # type: ignore
 from prompt_toolkit import prompt  # type: ignore
 from prompt_toolkit.validation import Validator  # type: ignore
 from prompt_toolkit.application.current import get_app  # type: ignore
+from contextlib import suppress
 
 
 def date_to_filename(bug_name: str, date: datetime) -> str:
@@ -27,17 +28,13 @@ def _decode_timedate(text: str) -> Optional[datetime]:
     if text == "":
         return datetime.now()
 
-    try:
+    with suppress(ValueError):
         return datetime.fromisoformat(text)
-    except ValueError:
-        pass
 
-    try:
+    with suppress(AssertionError, ValueError):
         parsed = timefhuman(text)
         if isinstance(parsed, datetime):
             return parsed
-    except (AssertionError, ValueError):
-        pass
 
     return None
 
