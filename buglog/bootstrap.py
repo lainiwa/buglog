@@ -21,8 +21,10 @@ def ensure_fzf() -> None:
         machine = platform.machine()
         arch = {"x86_64": "amd64"}.get(machine, machine)
 
-        asset_url = "https://github.com/junegunn/fzf-bin/releases/download"
-        asset_url += f"/{ver}/fzf-{ver}-{system}_{arch}.tgz"
+        asset_url = (
+            "https://github.com/junegunn/fzf-bin/releases/download"
+            f"/{ver}/fzf-{ver}-{system}_{arch}.tgz"
+        )
 
         response = httpx.get(asset_url)
 
