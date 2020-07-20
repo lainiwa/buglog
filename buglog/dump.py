@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import Union
 
 from blessings import Terminal  # type: ignore
-from bs4 import BeautifulSoup  # type: ignore
 from xdg import XDG_DATA_HOME
 
 from buglog.utils import Bug
