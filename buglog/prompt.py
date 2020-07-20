@@ -2,6 +2,7 @@ import re
 from contextlib import suppress
 from datetime import datetime
 from typing import Optional
+from typing import Tuple
 
 import readchar  # type: ignore
 from prompt_toolkit import prompt  # type: ignore
@@ -54,24 +55,26 @@ _validator = Validator.from_callable(
 )
 
 
-def edit_filename_date(bug_name: str) -> str:
+def edit_filename_date(bug_name: str, default: str = "") -> Tuple[str, str]:
     """Prompt user to change timedate of created file.
 
     Parameters:
         bug_name: The class name of the bug.
+        default: Default textual time.
 
     Returns:
-        New name of the .json dump file.
+        New name of the .json dump file
+        and the raw text entered by user.
     """
     text = prompt(
-        "Give a number: ",
-        default=datetime.now().isoformat("_", "seconds"),
+        "Time: ",
+        default=default,
         validator=_validator,
         bottom_toolbar=lambda: _get_toolbar_text(bug_name),
     )
     date = _decode_timedate(text)
     assert date is not None
-    return date_to_filename(bug_name, date)
+    return date_to_filename(bug_name, date), text
 
 
 def user_read_character(*args: str) -> str:

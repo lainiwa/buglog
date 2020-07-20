@@ -35,9 +35,28 @@ def print_bugs_and_errors(
             print(t.bold_red("✘ ") + t.red(f"{title}.{loc}: {msg}"))
 
 
+def bugs_save_dialog(bugs: Iterable[Bug]) -> None:
+    # Let the user choose the appropriate dates
+    char = user_read_character("[K]eep current date or [t]oggle: ")
+    text = ""
+    for bug in bugs:
+        bug_name = bug.__class__.__name__
+        now = datetime.now()
+        if char == "k":
+            file_name = date_to_filename(bug_name=bug_name, date=now)
+        else:
+            default = text or now.isoformat("_", "seconds")
+            file_name, text = edit_filename_date(
+                bug_name=bug_name, default=default
+            )
+            if text == default:
+                text = ""
+        dump_bug(bug=bug, file_name=file_name)
+
+
 def cli() -> None:
     # Pick bugs via fzf
-    picked_bugs = list(fuzzy_pick_bug())
+    picked_bugs = fuzzy_pick_bug()
     if not picked_bugs:
         return
 
@@ -96,15 +115,7 @@ def cli() -> None:
             return
 
     # Let the user choose the appropriate dates
-    char = user_read_character("[K]eep current date or [t]oggle: ")
-    for bug in only_bugs:
-        if char == "k":
-            file_name = date_to_filename(
-                bug_name=bug.__class__.__name__, date=datetime.now()
-            )
-        else:
-            file_name = edit_filename_date(bug_name=bug.__class__.__name__)
-        dump_bug(bug=bug, file_name=file_name)
+    bugs_save_dialog(only_bugs)
 
 
 if __name__ == "__main__":

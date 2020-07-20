@@ -1,5 +1,6 @@
-from subprocess import check_output
+from contextlib import suppress
 from subprocess import CalledProcessError
+from subprocess import check_output
 from typing import Iterator
 from typing import List
 from typing import Type
@@ -9,7 +10,7 @@ from xdg import XDG_DATA_HOME
 from buglog.utils import Bug
 from buglog.utils import get_bug_subclasses
 from buglog.utils import str_to_bug
-from contextlib import suppress
+
 
 def fuzzy_pick_bug() -> List[Type[Bug]]:
     def fzf_input() -> Iterator[str]:
