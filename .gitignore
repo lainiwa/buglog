@@ -32,6 +32,9 @@ MANIFEST.in
 /tests/fixtures/simple_project/setup.py
 /tests/fixtures/project_with_extras/setup.py
 .mypy_cache
+.pyre
+.pytype
+node_modules
 
 venv
 /releases/*
