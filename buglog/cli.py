@@ -3,10 +3,10 @@ from typing import Iterable
 
 import click
 from blessings import Terminal  # type: ignore
-from bs4 import BeautifulSoup  # type: ignore
 from docutils.utils import SystemMessage
 from pydantic.error_wrappers import ValidationError
 
+from buglog.dump import dump_bug
 from buglog.fuzzy import fuzzy_pick_bug
 from buglog.parse_rst import bugs_to_rst
 from buglog.parse_rst import rst_to_bugs
@@ -15,7 +15,6 @@ from buglog.prompt import edit_filename_date
 from buglog.prompt import user_read_character
 from buglog.utils import Bug
 from buglog.utils import split_to_types
-from buglog.dump import dump_bug
 
 
 def print_bugs_and_errors(
