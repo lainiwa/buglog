@@ -1,4 +1,5 @@
 from subprocess import check_output
+from subprocess import CalledProcessError
 from typing import Iterator
 from typing import List
 from typing import Type
@@ -8,7 +9,7 @@ from xdg import XDG_DATA_HOME
 from buglog.utils import Bug
 from buglog.utils import get_bug_subclasses
 from buglog.utils import str_to_bug
-
+from contextlib import suppress
 
 def fuzzy_pick_bug() -> List[Type[Bug]]:
     def fzf_input() -> Iterator[str]:
@@ -25,6 +26,9 @@ def fuzzy_pick_bug() -> List[Type[Bug]]:
     input_str = "\n".join(fzf_input())
     fzf = XDG_DATA_HOME / "buglog" / "fzf"
     fzf_cmd = [str(fzf), "--multi", "--with-nth", "2.."]
-    stdout = check_output(fzf_cmd, input=input_str, text=True)
 
-    return [_parse_item(line) for line in stdout.splitlines()]
+    with suppress(CalledProcessError):
+        stdout = check_output(fzf_cmd, input=input_str, text=True)
+        return [_parse_item(line) for line in stdout.splitlines()]
+
+    return []
