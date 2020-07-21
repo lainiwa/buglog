@@ -102,6 +102,7 @@ pre-commit = "^2.5.1"
 reorder-python-imports = "^2.3.1"
 safety = "^1.9.0"
 toml-sort = "^0.18.0"
+restview = "^2.9.2"
 
 [tool.poetry.scripts]
 bug = 'buglog.cli:cli'
