@@ -37,6 +37,9 @@ Upon the first invocation the tool will automatically
 Usage
 #####
 
+.. image:: https://asciinema.org/a/348860.svg
+   :target: https://asciinema.org/a/348860
+
 At it's current design the ``bug`` command does not accept any arguments.
 Just execute it an you will see the list of the "bugs" you can log
 into your personal log/database.
