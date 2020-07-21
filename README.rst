@@ -57,6 +57,37 @@ However, you can use bash scripting and jq_ to mess with the saved data.
 
 .. _jq: https://github.com/stedolan/jq
 
+Configuration
+#############
+
+The configuration file is read from
+``${XDG_CONFIG_HOME:-${HOME}/.config}/buglog/config.py``.
+In case no such file exists,
+buglog will automatically create it from the `template configuration`_.
+
+The configuration file -- exclusive of imports -- consists of flat
+Pydantic_ classes, inherited from ``Bug`` model.
+
+Take a look at the example model below:
+
+.. code-block:: python
+
+    class Squats(Bug):
+        """Excercise: squats"""
+        reps: int = Field(1, title="Repetitions", gt=0)
+        times: int = Field(..., gt=0)
+
+The docstring_ part here is completeley optional.
+You can choose not to write one, if it feels like the class name is
+informative enough.
+
+.. _template configuration: buglog/data/config.py
+.. _Pydantic: https://github.com/samuelcolvin/pydantic
+.. _docstring: https://www.python.org/dev/peps/pep-0257/#one-line-docstrings
+
+Limitations
+###########
+
 Similar Projects
 ################
 
@@ -70,10 +101,12 @@ Similar Projects
 .. _Dijo: https://github.com/NerdyPepper/dijo
 .. _Habitctl: https://github.com/blinry/habitctl
 .. _Watson: https://github.com/TailorDev/Watson
-.. _`Org mode`: https://orgmode.org/manual/Tracking-your-habits.html
+.. _Org mode: https://orgmode.org/manual/Tracking-your-habits.html
 
 License
 #######
 
 Buglog is released under the MIT License.
-See the bundled LICENSE file for details.
+See the bundled LICENSE_ file for details.
+
+.. _LICENSE: LICENSE
