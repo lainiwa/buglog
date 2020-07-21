@@ -68,7 +68,7 @@ buglog will automatically create it from the `template configuration`_.
 The configuration file -- exclusive of imports -- consists of flat
 Pydantic_ classes, inherited from ``Bug`` model.
 
-Take a look at the example model below:
+Take a look at the example Bug below:
 
 .. code-block:: python
 
@@ -77,13 +77,42 @@ Take a look at the example model below:
         reps: int = Field(1, title="Repetitions", gt=0)
         times: int = Field(..., gt=0)
 
-The docstring_ part here is completeley optional.
+Let's now line by line. First of all, to create a new Bug we need to derive it
+from the ``Bug`` class, so that buglog would know it is a Bug
+and not something else.
+
+.. code-block:: python
+
+    class Squats(Bug):
+
+Not the docstring_ part here is completeley optional.
 You can choose not to write one, if it feels like the class name is
 informative enough.
+
+.. code-block:: python
+
+        """Excercise: squats"""
+
+The ``title`` is also not strictly required: it is used as a more verbose
+description compared to a name of the field.
+
+The type ``int`` of the field will be checked against and enforced.
+
+.. code-block:: python
+
+        reps: int = Field(1, title="Repetitions", gt=0)
+
+The first positional argument if the ``Field()`` is the default.
+If you do not want the field to have a default -- you should
+put `...`_ instead.
+
+Use can specify additional checkers, for example ``gt=0``
+means the filed should be *greater-than* zero.
 
 .. _template configuration: buglog/data/config.py
 .. _Pydantic: https://github.com/samuelcolvin/pydantic
 .. _docstring: https://www.python.org/dev/peps/pep-0257/#one-line-docstrings
+.. _...: https://docs.python.org/dev/library/constants.html#Ellipsis
 
 Limitations
 ###########
