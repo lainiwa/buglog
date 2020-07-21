@@ -2,9 +2,14 @@
 repos:
 
   - repo: https://github.com/asottile/reorder_python_imports
-    rev: v2.3.0
+    rev: master
     hooks:
-    - id: reorder-python-imports
+      - id: reorder-python-imports
+        args: [
+          '--py37-plus',
+        ]
+        language: system
+        exclude: ^buglog/data/
 
   - repo: git@github.com:humitos/mirrors-autoflake.git
     rev: master
@@ -15,11 +20,46 @@ repos:
           '--remove-all-unused-imports',
           '--remove-unused-variable',
         ]
+        language: system
+        exclude: ^buglog/data/
 
   - repo: https://github.com/psf/black
-    rev: stable
+    rev: master
     hooks:
       - id: black
+        language: system
+        exclude: ^buglog/data/
+
+  - repo: https://github.com/pappasam/toml-sort
+    rev: master
+    hooks:
+      - id: toml-sort
+        args: ['--in-place']
+        language: system
+
+  - repo: local
+    hooks:
+      - id: python-safety-dependencies-check
+        name: Run safety on project packages.
+        entry: |
+          sh -c '
+            poetry export -f requirements.txt |
+            pipx run safety check --stdin
+          '
+        pass_filenames: false
+        language: system
+
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: master
+    hooks:
+      - id: yamllint
+        args: [--format, parsable, --strict]
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-markup
+    rev: master
+    hooks:
+      - id: rst-linter
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: master
@@ -30,7 +70,8 @@ repos:
       - id: check-ast
       # Forbid files which have a UTF-8 byte-order marker
       - id: check-byte-order-marker
-      # Require literal syntax when initializing empty or zero Python builtin types
+      # Require literal syntax when initializing empty
+      # or zero Python builtin types
       - id: check-builtin-literals
       # Check for files that would conflict in case-insensitive filesystems
       - id: check-case-conflict
@@ -54,25 +95,26 @@ repos:
       - id: check-xml
       # Check yaml files for parseable syntax
       - id: check-yaml
-      # Check for debugger imports and py37+ `breakpoint()` calls in python source
+      # Check for debugger imports and py37+ `breakpoint()`
+      # calls in python source
       - id: debug-statements
       # Detect *your* aws credentials from the aws cli credentials file
-      # - id: detect-aws-credentials
+      - id: detect-aws-credentials
       # Detect the presence of private keys
       - id: detect-private-key
       # Replace double quoted strings with single quoted strings
-      # - id: double-quote-string-fixer
       # Ensure that a file is either empty, or ends with one newline
       - id: end-of-file-fixer
-      # Sort the lines in specified files (defaults to alphabetical). You must
-      # provide list of target files as input in your .pre-commit-config.yaml file
+      # Sort the lines in specified files (defaults to alphabetical).
+      # You must provide list of target files as input in your
+      # .pre-commit-config.yaml file
       - id: file-contents-sorter
       # Prevent addition of new git submodules
       - id: forbid-new-submodules
       # Replace or checks mixed line ending
       - id: mixed-line-ending
       # This verifies that test files are named correctly
-      # - id: name-tests-test
+      - id: name-tests-test
       # Don't commit to branch
       # - id: no-commit-to-branch
       # Sort entries in requirements.txt
@@ -92,20 +134,3 @@ repos:
       - id: script-must-have-extension
       # Executable shell script omits the filename extension
       - id: script-must-not-have-extension
-
-  # - repo: https://github.com/asottile/dead
-  #   rev: master
-  #   hooks:
-  #   - id: dead
-
-  # - repo: https://github.com/PyCQA/pydocstyle
-  #   rev: master
-  #   hooks:
-  #   - id: pydocstyle
-      # args:
-      # - --ignore=D100,D203,D405
-      # # or multiline
-      # - |-
-      #       --select=
-      #       D101,
-      #       D2

@@ -5,6 +5,7 @@ import click
 from blessings import Terminal  # type: ignore
 from docutils.utils import SystemMessage
 from pydantic.error_wrappers import ValidationError
+from pydantic.main import ModelMetaclass
 
 from buglog.dump import dump_bug
 from buglog.fuzzy import fuzzy_pick_bug
@@ -15,7 +16,6 @@ from buglog.prompt import edit_filename_date
 from buglog.prompt import user_read_character
 from buglog.utils import Bug
 from buglog.utils import split_to_types
-from pydantic.main import ModelMetaclass
 
 
 def print_bugs_and_errors(
