@@ -15,6 +15,7 @@ from buglog.prompt import edit_filename_date
 from buglog.prompt import user_read_character
 from buglog.utils import Bug
 from buglog.utils import split_to_types
+from pydantic.main import ModelMetaclass
 
 
 def print_bugs_and_errors(
@@ -27,7 +28,7 @@ def print_bugs_and_errors(
 
     for err in errs:
         model = err.model
-        assert isinstance(model, Bug)
+        assert isinstance(model, ModelMetaclass)
         title = model.schema()["title"]
         for sub_err in err.errors():
             (loc,) = sub_err["loc"]
