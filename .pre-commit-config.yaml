@@ -114,7 +114,7 @@ repos:
       # Replace or checks mixed line ending
       - id: mixed-line-ending
       # This verifies that test files are named correctly
-      - id: name-tests-test
+      # - id: name-tests-test
       # Don't commit to branch
       # - id: no-commit-to-branch
       # Sort entries in requirements.txt
