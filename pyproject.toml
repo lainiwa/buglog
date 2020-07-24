@@ -57,10 +57,10 @@ blessings = "^1.7"
 click = "^7.1.2"
 docutils = "^0.16"
 httpx = "^0.13.3"
+timefhuman = { git = "https://github.com/alvinwan/timefhuman", rev = "ae31f38" }
 prompt_toolkit = "^3.0.5"
 python = ">=3.7,<4.0"
 readchar = "^2.0.1"
-timefhuman = "^0.0.5"
 xdg = "^4.0.1"
 
 [tool.poetry.dependencies.pydantic]
