@@ -14,6 +14,11 @@ from timefhuman import timefhuman  # type: ignore
 def date_to_filename(bug_name: str, date: datetime) -> str:
     """Get appropriate filename for a bug dump.
 
+    Example:
+        >>> from datetime import datetime
+        >>> date_to_filename('Squats', datetime(2007, 12, 6, 15, 29, 43))
+        '2007-12-06_15:29:43_Squats.json'
+
     Parameters:
         bug_name: The class name of the bug.
         date: Bug generation time and date.
