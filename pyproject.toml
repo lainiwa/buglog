@@ -103,6 +103,17 @@ reorder-python-imports = "^2.3.1"
 safety = "^1.9.0"
 toml-sort = "^0.18.0"
 restview = "^2.9.2"
+pytest = "^6.0.0rc1"
 
 [tool.poetry.scripts]
 bug = 'buglog.cli:cli'
+
+[tool.pytest.ini_options]
+addopts = '''
+  --doctest-modules
+  --verbose
+'''
+markers = '''
+    slow: marks tests as slow (deselect with '-m "not slow"')
+    serial
+'''
