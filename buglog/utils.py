@@ -58,7 +58,7 @@ T2 = TypeVar("T2")
 
 
 def split_to_types(
-    *, items: Iterable[Union[T1, T2, Any]], t1: Type[T1], t2: Type[T2]
+    items: Iterable[Union[T1, T2, Any]], *, t1: Type[T1], t2: Type[T2]
 ) -> Tuple[List[T1], List[T2]]:
     """Split list into two lists, based on type.
 
@@ -70,6 +70,15 @@ def split_to_types(
     Returns:
         Two lists, each with object of it's own type.
         All objects which are not either of type t1 or t2 are dropped.
+
+    Example:
+        >>> nums = iter([
+        ...     1, 2, 3, 4, 5, 6, 7, 8, 9,
+        ...     'A', 'B', 'C', 'D', 'E', 'F',
+        ...     None, print
+        ... ])
+        >>> split_to_types(nums, t1=int, t2=str)
+        ([1, 2, 3, 4, 5, 6, 7, 8, 9], ['A', 'B', 'C', 'D', 'E', 'F'])
     """
     items = list(items)
     items_t1 = [item for item in items if isinstance(item, t1)]
@@ -78,7 +87,14 @@ def split_to_types(
 
 
 def str_to_bug(bug_name: str) -> Type[Bug]:
-    """Convert string containing bug class name to a class itself."""
+    """Convert string containing bug class name to a class itself.
+
+    Parameters:
+        bug_name: The name of the Bug subclass.
+
+    Returns:
+        The bug's subclass object.
+    """
     return {
         bug_class.__name__: bug_class for bug_class in get_bug_subclasses()
     }[bug_name]
