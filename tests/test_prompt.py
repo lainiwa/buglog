@@ -22,7 +22,7 @@ def rotate_chars(chars: str) -> Callable[[], str]:
     ],
 )
 def test_user_read_character(
-    args, chars, choice, monkeypatch: MonkeyPatch
+    args: Iterable[str], chars: str, choice: str, monkeypatch: MonkeyPatch
 ) -> None:
     from buglog.prompt import user_read_character
 
