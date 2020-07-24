@@ -21,9 +21,11 @@ Install
 
 Any of these would go::
 
-    pip install --user 'https://github.com/lainiwa/buglog'
+    pip install --user 'git+https://github.com/lainiwa/buglog'
 
-    pipx install 'https://github.com/lainiwa/buglog'
+    pipx install 'git+https://github.com/lainiwa/buglog'  # newer versions
+
+    pipx install --spec 'git+https://github.com/lainiwa/buglog.git' buglog
 
 Then the util can be run as::
 
