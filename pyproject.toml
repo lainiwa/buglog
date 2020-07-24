@@ -112,6 +112,7 @@ bug = 'buglog.cli:cli'
 addopts = '''
   --doctest-modules
   --verbose
+  -m 'not slow'
 '''
 markers = '''
     slow: marks tests as slow (deselect with '-m "not slow"')
