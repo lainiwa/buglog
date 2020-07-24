@@ -88,7 +88,7 @@ def user_read_character(*args: str) -> str:
     a default choice and corrsponds to pressing Enter.
 
     Example:
-        >>> user_read_character("Install?", "[Y]es/[n]ope")
+        >>> user_read_character("Install?", "[Y]es/[n]ope")  # doctest: +SKIP
 
     Parameters:
         args: Lines to be printed as a prompt.
