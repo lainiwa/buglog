@@ -15,6 +15,11 @@ class Squats(Bug):
     reps: int = Field(1, title="Repetitions", gt=0)
     times: int = Field(..., gt=0)
 
+class PushUps(Bug):
+    """Excercise: push ups"""
+    reps: int = Field(1, title="Repetitions", gt=0)
+    times: int = Field(..., gt=0)
+
 class LegRaises(Bug):
     """Excercise: leg raises"""
     reps: int = Field(1, title="Repetitions", gt=0)
@@ -52,6 +57,9 @@ class Drink_DietSoda2L(Bug):
     """Two liters of diet soda"""
     liters: float = Field(2, title="Vol [L]", gt=0)
     name: str = Field("diet soda", title="What was it")
+
+class Crisps(Bug):
+    mass: float = Field(..., title="Mass [g]", gt=0)
 
 
 #################################################
