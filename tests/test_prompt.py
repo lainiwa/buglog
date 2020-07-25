@@ -1,4 +1,5 @@
 from typing import Callable
+from typing import Iterable
 
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
@@ -6,6 +7,7 @@ from _pytest.monkeypatch import MonkeyPatch
 
 def rotate_chars(chars: str) -> Callable[[], str]:
     cs = list(reversed(chars))
+
     def _get_char() -> str:
         return cs.pop()
 
