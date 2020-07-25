@@ -11,6 +11,12 @@ repos:
         language: system
         exclude: ^buglog/data/
 
+  - repo: https://github.com/asottile/pyupgrade
+    rev: master
+    hooks:
+      - id: pyupgrade
+        exclude: ^buglog/data/
+
   - repo: git@github.com:humitos/mirrors-autoflake.git
     rev: master
     hooks:
