@@ -3,7 +3,7 @@ from contextlib import suppress
 from pathlib import Path
 from typing import Union
 
-from blessings import Terminal  # type: ignore
+from blessings import Terminal
 from xdg import XDG_DATA_HOME
 
 from buglog.utils import Bug

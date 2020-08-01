@@ -7,7 +7,7 @@ from typing import Tuple
 from typing import Type
 from typing import Union
 
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup
 from docutils.core import publish_parts
 from pydantic.error_wrappers import ValidationError
 

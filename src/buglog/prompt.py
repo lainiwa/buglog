@@ -4,11 +4,11 @@ from datetime import datetime
 from typing import Optional
 from typing import Tuple
 
-import readchar  # type: ignore
-from prompt_toolkit import prompt  # type: ignore
-from prompt_toolkit.application.current import get_app  # type: ignore
-from prompt_toolkit.validation import Validator  # type: ignore
-from timefhuman import timefhuman  # type: ignore
+import readchar
+from prompt_toolkit import prompt
+from prompt_toolkit.application.current import get_app
+from prompt_toolkit.validation import Validator
+from timefhuman import timefhuman
 
 
 def date_to_filename(bug_name: str, date: datetime) -> str:

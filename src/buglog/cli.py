@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Iterable
 
 import click
-from blessings import Terminal  # type: ignore
+from blessings import Terminal
 from docutils.utils import SystemMessage
 from pydantic.error_wrappers import ValidationError
 from pydantic.main import ModelMetaclass
