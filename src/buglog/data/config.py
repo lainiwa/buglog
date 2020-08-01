@@ -25,6 +25,11 @@ class LegRaises(Bug):
     reps: int = Field(1, title="Repetitions", gt=0)
     time: int = Field(..., title="Time [s]", gt=0)
 
+class PelvicLift(Bug):
+    """Excercise: pelvic lift"""
+    reps: int = Field(1, title="Repetitions", gt=0)
+    times: int = Field(..., gt=0)
+
 
 #################################################
 # MEDS
