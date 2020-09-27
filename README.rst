@@ -1,10 +1,13 @@
 
-===============================
-BUGlog - log what's bugging you
-===============================
+.. image:: https://github.com/lainiwa/buglog/workflows/Tests/badge.svg
+    :target: https://github.com/lainiwa/buglog/actions?workflow=Tests
 
 .. image:: https://codecov.io/gh/lainiwa/buglog/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/lainiwa/buglog
+
+===============================
+BUGlog - log what's bugging you
+===============================
 
 This CLI tool is meant to be used as
 
