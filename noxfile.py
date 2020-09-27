@@ -48,7 +48,7 @@ py_files = [
 ]
 
 
-@lru_cache
+@lru_cache()
 def constraints(*args: str, **kwargs: Any) -> str:
     return subprocess.check_output(
         [
