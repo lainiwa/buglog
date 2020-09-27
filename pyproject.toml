@@ -162,7 +162,8 @@ test = [
 ]
 
 [tool.poetry.scripts]
-bug = 'buglog.cli:cli'
+bug = 'buglog.cli:main'
+
 
 [tool.pytest.ini_options]
 addopts = '''
