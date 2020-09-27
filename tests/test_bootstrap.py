@@ -1,5 +1,6 @@
 from hashlib import sha256
 from pathlib import Path
+import os
 
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
@@ -24,6 +25,13 @@ def test_ensure_fzf(monkeypatch: MonkeyPatch, tmp_path: Path) -> None:
     with open(fzf_path, "rb") as fzf_file:
         readable_hash = sha256(fzf_file.read()).hexdigest()
         assert readable_hash == expected_hash
+
+    # Clear fzf file's contents
+    open(fzf_path, "w").close()
+    # Call ensure_fzf again and check it would not download fzf again
+    ensure_fzf()
+    assert os.stat(fzf_path).st_size == 0
+
 
 
 def test_ensure_config(monkeypatch: MonkeyPatch, tmp_path: Path) -> None:
