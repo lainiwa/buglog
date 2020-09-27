@@ -56,7 +56,7 @@ def rst_to_bugs(text: str) -> Iterator[Union[Bug, ValidationError]]:
     for section in sections:
         title = section.h1.text
         bug_name = title.replace(":", " ").split(" ")[0]
-        bug_class = str_to_bug(bug_name)
+        bug_class: Any = str_to_bug(bug_name)
         bug_args = dict(
             _map_items_to_strings(bug_class, item.text)
             for item in section.select("li")

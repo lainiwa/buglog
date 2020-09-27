@@ -54,7 +54,7 @@ def _get_toolbar_text(bug_name: str) -> str:
 
 
 _validator = Validator.from_callable(
-    _decode_timedate,
+    lambda s: bool(_decode_timedate(s)),
     error_message="This input is not a timedate",
     move_cursor_to_end=True,
 )
