@@ -3,6 +3,9 @@
 BUGlog - log what's bugging you
 ===============================
 
+.. image:: https://codecov.io/gh/lainiwa/buglog/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/lainiwa/buglog
+
 This CLI tool is meant to be used as
 
 * pills intake log
