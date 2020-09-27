@@ -33,18 +33,25 @@ max_annotations_complexity = 4     # flake8-annotations-complexity
 no_accept_encodings = true
 max_expression_complexity = 7     # flake8-expression-complexity
 
-[tool.flakehell.exceptions."buglog/data/*"]
+[tool.flakehell.exceptions."**/data/config.py"]
 "flake8-*" = ["-*"]
 
 [tool.flakehell.plugins]
-dlint = ["+*"]
-mccabe = ["+*"]
-pyflakes = ["+*"]
+# Enable all first
+dlint      = ["+*"]
+pyflakes   = ["+*"]
 "flake8-*" = ["+*"]
-flake8-bandit = ["+*", "-S101"]
+# Then disable some
+flake8-bandit = ["+*",
+  "-S101",  # Use of assert detected
+  "-S404",  # Consider possible security implications associated with CalledProcessError module
+  "-S603",  # Subprocess call - check for execution of untrusted input
+]
 flake8-cognitive-complexity = ["-*"]
 flake8-docstrings = ["-*"]
 flake8-print = ["-*"]
+mccabe = ["-*"]
+
 
 [tool.poetry]
 authors = ["lainiwa <kirrik96@gmail.com>"]
