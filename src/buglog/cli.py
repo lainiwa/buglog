@@ -123,5 +123,11 @@ def cli() -> None:
     bugs_save_dialog(only_bugs)
 
 
-if __name__ == "__main__":
+@click.command()
+@click.version_option(prog_name=__package__)
+def main() -> None:
     cli()
+
+
+if __name__ == "__main__":
+    main()
