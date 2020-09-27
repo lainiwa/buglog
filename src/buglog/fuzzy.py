@@ -7,6 +7,7 @@ from typing import Type
 
 from xdg import XDG_DATA_HOME
 
+from buglog.bootstrap import ensure_fzf
 from buglog.utils import Bug
 from buglog.utils import get_bug_subclasses
 from buglog.utils import str_to_bug
@@ -23,6 +24,8 @@ def fuzzy_pick_bug() -> List[Type[Bug]]:
     def _parse_item(line: str) -> Type[Bug]:
         bug_name, _ = line.split(" ", 1)
         return str_to_bug(bug_name)
+
+    ensure_fzf()
 
     input_str = "\n".join(fzf_input())
     fzf = XDG_DATA_HOME / "buglog" / "fzf"

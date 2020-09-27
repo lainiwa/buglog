@@ -15,14 +15,10 @@ from pydantic import BaseModel
 from xdg import XDG_CONFIG_HOME
 
 from buglog.bootstrap import ensure_config
-from buglog.bootstrap import ensure_fzf
 
 
 class Bug(BaseModel):
     pass
-
-
-ensure_fzf()
 
 
 def import_config() -> ModuleType:
