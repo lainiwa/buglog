@@ -60,59 +60,63 @@ name = "buglog"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
-beautifulsoup4 = "^4.9.1"
-blessings = "^1.7"
-click = "^7.1.2"
-docutils = "^0.16"
-httpx = "^0.13.3"
+python         = ">=3.7,<4.0"
+beautifulsoup4 = "*"
+blessings      = "*"
+click          = "*"
+docutils       = "*"
+httpx          = "*"
+prompt_toolkit = "*"
+readchar       = "*"
+xdg            = "*"
 timefhuman = { git = "https://github.com/alvinwan/timefhuman", rev = "ae31f38" }
-prompt_toolkit = "^3.0.5"
-python = ">=3.7,<4.0"
-readchar = "^2.0.1"
-xdg = "^4.0.1"
-
-[tool.poetry.dependencies.pydantic]
-extras = ["typing_extensions"]
-version = "^1.5.1"
+pydantic = { version = "*", extras = ["typing_extensions"] }
+# Extra: lint
+dlint                         = { optional = true, version = "*" }  # Encourage best practices + security
+flake8                        = { optional = true, version = "*" }
+flake8-alfred                 = { optional = true, version = "*" }  # Check for unsafe/obsolete symbols
+flake8-annotations            = { optional = true, version = "*" }
+flake8-annotations-complexity = { optional = true, version = "*" }  # Validate annotations complexity
+flake8-bandit                 = { optional = true, version = "*" }  # Check security
+flake8-broken-line            = { optional = true, version = "*" }  # Don't break the line
+flake8-bugbear                = { optional = true, version = "*" }  # Likely bugs and design problems
+flake8-builtins               = { optional = true, version = "*" }  # Builtins used as variables or parameters
+flake8-coding                 = { optional = true, version = "*" }
+flake8-cognitive-complexity   = { optional = true, version = "*" }  # Functions' cognitive complexity
+flake8-comprehensions         = { optional = true, version = "*" }  # Better list/set/dict comprehensions
+flake8-debugger               = { optional = true, version = "*" }  # Check for debug statements
+flake8-docstrings             = { optional = true, version = "*" }  # Checks provided by pep257
+flake8-eradicate              = { optional = true, version = "*" }  # Commented out or dead code
+flake8-executable             = { optional = true, version = "*" }  # Executable flags and shebangs
+flake8-expression-complexity  = { optional = true, version = "*" }  # Annotations' complexity
+flake8-fixme                  = { optional = true, version = "*" }  # Check for FIXME, TODO etc notes
+flake8-functions              = { optional = true, version = "*" }  # Function parameters (length, complexity, etc)
+flake8-mutable                = { optional = true, version = "*" }  # Check for mutable default arguments
+flake8-pep3101                = { optional = true, version = "*" }  # Ceck for old string formatting
+flake8-pie                    = { optional = true, version = "*" }  # Misc. lints
+flake8-print                  = { optional = true, version = "*" }  # Print statements
+flake8-string-format          = { optional = true, version = "*" }  # Check .format()
+flake8-tidy-imports           = { optional = true, version = "*" }
+flakehell                     = { optional = true, version = "*" }
+pep8-naming                   = { optional = true, version = "*" }  # Check naming conventions
+# Extra: fmt
+autoflake              = { optional = true, version = "*" }
+black                  = { optional = true, version = "*" }
+pyupgrade              = { optional = true, version = "*" }
+reorder-python-imports = { optional = true, version = "*" }
+# Extra: test
+coverage    = { optional = true, version = "*", extras = ["toml"] }
+pytest      = { optional = true, version = "*" }
+pytest-cov  = { optional = true, version = "*" }
+pytest-mock = { optional = true, version = "*" }
 
 [tool.poetry.dev-dependencies]
-autoflake = "^1.3.1"
-black = "^19.10b0"
-dlint = "^0.10.3"  # Encourage best practices + security
-flake8-alfred = "^1.1.1"  # Check for unsafe/obsolete symbols
-flake8-annotations = "^2.1.0"
-flake8-annotations-complexity = "^0.0.5"  # Validate annotations complexity
-flake8-bandit = "^2.1.2"  # Check security
-flake8-broken-line = "^0.2.0"  # Don't break the line
-flake8-bugbear = "^20.1.4"  # Likely bugs and design problems
-flake8-builtins = "^1.5.3"  # Builtins used as variables or parameters
-flake8-coding = "^1.3.2"
-flake8-cognitive-complexity = "^0.0.2"  # Functions' cognitive complexity
-flake8-comprehensions = "^3.2.3"  # Better list/set/dict comprehensions
-flake8-debugger = "^3.2.1"  # Check for debug statements
-flake8-docstrings = "^1.5.0"  # Checks provided by pep257
-flake8-eradicate = "^0.4.0"  # Commented out or dead code
-flake8-executable = "^2.0.3"  # Executable flags and shebangs
-flake8-expression-complexity = "^0.0.8"  # Annotations' complexity
-flake8-fixme = "^1.1.1"  # Check for FIXME, TODO etc notes
-flake8-functions = "^0.0.4"  # Function parameters (length, complexity, etc)
-flake8-mutable = "^1.2.0"  # Check for mutable default arguments
-flake8-pep3101 = "^1.3.0"  # Ceck for old string formatting
-flake8-pie = "^0.5.0"  # Misc. lints
-flake8-print = "^3.1.4"  # Print statements
-flake8-string-format = "^0.3.0"  # Check .format()
-flake8-tidy-imports = "^4.1.0"
-flakehell = "^0.5.0"
-ipython = "^7.16.1"
-mypy = "^0.782"
-pep8-naming = "^0.11.1"  # Check naming conventions
-pre-commit = "^2.5.1"
-reorder-python-imports = "^2.3.1"
-safety = "^1.9.0"
-toml-sort = "^0.18.0"
-restview = "^2.9.2"
-pytest = "^6.0.0rc1"
-pytest-cov = "^2.10.0"
+mypy       = "*"
+safety     = "*"
+pre-commit = "*"
+ipython    = "*"
+toml-sort  = "*"
+restview   = "*"
 
 [tool.poetry.scripts]
 bug = 'buglog.cli:cli'
