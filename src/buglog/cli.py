@@ -77,7 +77,8 @@ def cli() -> None:
             items = list(rst_to_bugs(rst_text))
         except SystemMessage:
             char = user_read_character(
-                "Could not parse text.", "[e]dit/[c]ancel: ",
+                "Could not parse text.",
+                "[e]dit/[c]ancel: ",
             )
             if char == "e":
                 print()
@@ -85,7 +86,9 @@ def cli() -> None:
             elif char == "c":
                 return
         only_bugs, only_errs = split_to_types(
-            items=items, t1=Bug, t2=ValidationError,
+            items=items,
+            t1=Bug,
+            t2=ValidationError,
         )
         # Print the parse results
         print_bugs_and_errors(bugs=only_bugs, errs=only_errs)
@@ -95,7 +98,8 @@ def cli() -> None:
         # else if no valid bugs could be parsed from the text
         if not only_bugs:
             char = user_read_character(
-                "No meaningfull bugs found.", "[e]dit/[c]ancel: ",
+                "No meaningfull bugs found.",
+                "[e]dit/[c]ancel: ",
             )
             if char == "e":
                 print()

@@ -1,4 +1,5 @@
 from pydantic import Field
+
 from buglog.utils import Bug
 
 
