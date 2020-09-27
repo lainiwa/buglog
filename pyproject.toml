@@ -2,6 +2,7 @@
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
+
 [tool.black]
 line-length = 79
 exclude = '''
@@ -23,6 +24,7 @@ exclude = '''
   | /src/buglog/data/config.py
 )
 '''
+
 
 [tool.flakehell]
 format = "colored"  # colored/grouped/stat/json/gitlab
@@ -105,6 +107,7 @@ black                  = { optional = true, version = "*" }
 pyupgrade              = { optional = true, version = "*" }
 reorder-python-imports = { optional = true, version = "*" }
 # Extra: test
+codecov     = { optional = true, version = "*" }
 coverage    = { optional = true, version = "*", extras = ["toml"] }
 pytest      = { optional = true, version = "*" }
 pytest-cov  = { optional = true, version = "*" }
@@ -155,6 +158,7 @@ fmt = [
   "reorder-python-imports",
 ]
 test = [
+  "codecov",
   "coverage",
   "pytest",
   "pytest-cov",
