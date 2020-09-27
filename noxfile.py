@@ -213,9 +213,6 @@ def coverage(session: Session) -> None:
 #     session.run("python", "-m", "xdoctest", package, *args)
 
 
-
-
-
 # @nox.session(python="3.8")
 # def docs(session: Session) -> None:
 #     """Build the documentation."""

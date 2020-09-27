@@ -1,8 +1,7 @@
 import pytest
-from _pytest.monkeypatch import MonkeyPatch
 from click.testing import CliRunner
+
 from buglog import cli
-from typing import Callable
 
 
 @pytest.fixture

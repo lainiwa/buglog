@@ -33,7 +33,6 @@ def test_ensure_fzf(monkeypatch: MonkeyPatch, tmp_path: Path) -> None:
     assert os.stat(fzf_path).st_size == 0
 
 
-
 def test_ensure_config(monkeypatch: MonkeyPatch, tmp_path: Path) -> None:
     # Variables
     config_home = tmp_path / ".config"
