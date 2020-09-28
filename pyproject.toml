@@ -112,6 +112,9 @@ coverage    = { optional = true, version = "*", extras = ["toml"] }
 pytest      = { optional = true, version = "*" }
 pytest-cov  = { optional = true, version = "*" }
 pytest-mock = { optional = true, version = "*" }
+# Extra: docs
+sphinx                   = { optional = true, version = "*" }
+sphinx-autodoc-typehints = { optional = true, version = "*" }
 
 [tool.poetry.dev-dependencies]
 mypy       = "*"
@@ -163,6 +166,10 @@ test = [
   "pytest",
   "pytest-cov",
   "pytest-mock",
+]
+docs = [
+  "sphinx",
+  "sphinx-autodoc-typehints",
 ]
 
 [tool.poetry.scripts]

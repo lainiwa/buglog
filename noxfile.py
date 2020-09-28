@@ -213,9 +213,10 @@ def coverage(session: Session) -> None:
 #     session.run("python", "-m", "xdoctest", package, *args)
 
 
-# @nox.session(python="3.8")
-# def docs(session: Session) -> None:
-#     """Build the documentation."""
-#     session.run("poetry", "install", "--no-dev", external=True)
-#     install_with_constraints(session, "sphinx", "sphinx-autodoc-typehints")
-#     session.run("sphinx-build", "docs", "docs/_build")
+@nox.session(python="3.8")
+def docs(session: Session) -> None:
+    """Build the documentation."""
+    with constraints_file("--without-hashes", "-E", "docs") as reqs_path:
+        session.install("-r", f"{reqs_path}")
+        session.install(".")
+        session.run("sphinx-build", "docs", "docs/_build")
