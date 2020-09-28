@@ -36,7 +36,7 @@ locations = (
     "src",
     "tests",
     "noxfile.py",
-    # "docs/conf.py",
+    "docs/conf.py",
 )
 
 py_files = [
@@ -81,6 +81,8 @@ def all_constraints_file(*args: str, **kwargs: Any) -> ContextManager[str]:
         "fmt",
         "-E",
         "test",
+        "-E",
+        "docs",
         *args,
         **kwargs,
     )

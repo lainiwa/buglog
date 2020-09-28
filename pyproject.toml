@@ -30,10 +30,13 @@ exclude = '''
 format = "colored"  # colored/grouped/stat/json/gitlab
 show_source = true
 max_line_length = 79
-max_complexity = 6     # mccabe
-max_annotations_complexity = 4     # flake8-annotations-complexity
+# mccabe
+max_complexity = 6
+# flake8-annotations-complexity
+max_annotations_complexity = 4
 no_accept_encodings = true
-max_expression_complexity = 7     # flake8-expression-complexity
+# flake8-expression-complexity
+max_expression_complexity = 7
 
 [tool.flakehell.exceptions."**/data/config.py"]
 "flake8-*" = ["-*"]
@@ -83,7 +86,6 @@ flake8-bandit                 = { optional = true, version = "*" }  # Check secu
 flake8-broken-line            = { optional = true, version = "*" }  # Don't break the line
 flake8-bugbear                = { optional = true, version = "*" }  # Likely bugs and design problems
 flake8-builtins               = { optional = true, version = "*" }  # Builtins used as variables or parameters
-flake8-coding                 = { optional = true, version = "*" }
 flake8-cognitive-complexity   = { optional = true, version = "*" }  # Functions' cognitive complexity
 flake8-comprehensions         = { optional = true, version = "*" }  # Better list/set/dict comprehensions
 flake8-debugger               = { optional = true, version = "*" }  # Check for debug statements
@@ -135,7 +137,6 @@ lint = [
   "flake8-broken-line",
   "flake8-bugbear",
   "flake8-builtins",
-  "flake8-coding",
   "flake8-cognitive-complexity",
   "flake8-comprehensions",
   "flake8-debugger",
