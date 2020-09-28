@@ -117,6 +117,7 @@ pytest-mock = { optional = true, version = "*" }
 # Extra: docs
 sphinx                   = { optional = true, version = "*" }
 sphinx-autodoc-typehints = { optional = true, version = "*" }
+sphinx-rtd-theme         = { optional = true, version = "*" }
 
 [tool.poetry.dev-dependencies]
 mypy       = "*"
@@ -171,6 +172,7 @@ test = [
 docs = [
   "sphinx",
   "sphinx-autodoc-typehints",
+  "sphinx-rtd-theme",
 ]
 
 [tool.poetry.scripts]
