@@ -1,9 +1,15 @@
 
 .. image:: https://github.com/lainiwa/buglog/workflows/Tests/badge.svg
     :target: https://github.com/lainiwa/buglog/actions?workflow=Tests
+    :alt: Tests
 
 .. image:: https://codecov.io/gh/lainiwa/buglog/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/lainiwa/buglog
+    :alt: Code Coverage
+
+.. image:: https://api.codeclimate.com/v1/badges/97777175ea119faea186/maintainability
+   :target: https://codeclimate.com/github/lainiwa/buglog/maintainability
+   :alt: Maintainability
 
 ===============================
 BUGlog - log what's bugging you
