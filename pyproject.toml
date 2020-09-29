@@ -107,6 +107,7 @@ yamllint                      = { optional = true, version = "*" }
 # Extra: fmt
 autoflake              = { optional = true, version = "*" }
 black                  = { optional = true, version = "*" }
+docformatter           = { optional = true, version = "*" }
 pyupgrade              = { optional = true, version = "*" }
 reorder-python-imports = { optional = true, version = "*" }
 # Extra: test
@@ -161,6 +162,7 @@ lint = [
 fmt = [
   "autoflake",
   "black",
+  "docformatter",
   "pyupgrade",
   "reorder-python-imports",
 ]
