@@ -15,7 +15,7 @@ from nox.sessions import Session
 package = "buglog"
 
 nox.options.sessions = (
-    # extra: fmt
+    # Extra:: fmt
     "reorder_imports",
     "autoflake",
     "pyupgrade",
@@ -24,17 +24,17 @@ nox.options.sessions = (
     "safety",
     # Type checking
     "mypy",
-    # extra: lint
+    # Extra:: lint
     "lint",
-    # extra: test
+    # Extra:: test
     "tests",
     # "coverage",
     # "pytype",
 )
 
 locations = (
-    "src",
-    "tests",
+    "src/",
+    "tests/",
     "noxfile.py",
     "docs/conf.py",
 )
@@ -91,15 +91,14 @@ def all_constraints_file(*args: str, **kwargs: Any) -> ContextManager[str]:
 @nox.session(python="3.8")
 def reorder_imports(session: Session) -> None:
     """Reformat imports."""
+    colon_dirs = ":".join(filter(os.path.isdir, locations))
     with all_constraints_file() as reqs_path:
         session.install(f"--constraint={reqs_path}", "reorder-python-imports")
-        # session.cd("src/buglog")
         session.run(
             "reorder-python-imports",
             "--py37-plus",
             "--unclassifiable-application-module=buglog",
-            "--application-directories=src:tests",
-            # *glob("**/*.py", recursive=True),
+            f"--application-directories={colon_dirs}",
             success_codes=[0, 1],
         )
 
@@ -157,12 +156,18 @@ def safety(session: Session) -> None:
 @nox.session(python="3.8")
 def lint(session: Session) -> None:
     """Lint using flake8."""
-    session.posargs or locations
+    args = session.posargs or locations
     with constraints_file("--without-hashes", "-E", "lint") as reqs_path:
         session.install("-r", f"{reqs_path}")
-        session.run("flakehell", "lint", "src", "tests")
-        # session.run("flake8", "src")
-        # session.run("flake8", *args)
+        session.run("flakehell", "lint", *args)
+        session.run(
+            "yamllint",
+            "--format",
+            "parsable",
+            "--strict",
+            ".github",
+            ".readthedocs.yml",
+        )
 
 
 # @nox.session(python=["3.8", "3.7"])
@@ -175,14 +180,6 @@ def mypy(session: Session) -> None:
         session.run("mypy", *args)
 
 
-# @nox.session(python="3.7")
-# def pytype(session: Session) -> None:
-#     """Type-check using pytype."""
-#     args = session.posargs or ["--disable=import-error", *locations]
-#     install_with_constraints(session, "pytype")
-#     session.run("pytype", *args)
-
-
 # @nox.session(python=["3.8", "3.7"])
 @nox.session(python=["3.8"])
 def tests(session: Session) -> None:
@@ -192,8 +189,6 @@ def tests(session: Session) -> None:
         session.install(".")
         session.install("-r", f"{reqs_path}")
         session.install("nox")
-        # session.install(f"--constraint={reqs_path}", "mypy", "pydantic")
-        # session.run("flake8", "src")
         session.run("pytest", *args)
 
 
@@ -204,24 +199,6 @@ def coverage(session: Session) -> None:
         session.install("-r", f"{reqs_path}")
         session.run("coverage", "xml", "--fail-under=0")
         session.run("codecov", *session.posargs)
-
-
-# @nox.session(python=["3.8", "3.7"])
-# def typeguard(session: Session) -> None:
-#     """Runtime type checking using Typeguard."""
-#     args = session.posargs or ["-m", "not e2e"]
-#     session.run("poetry", "install", "--no-dev", external=True)
-#     install_with_constraints(session, "pytest", "pytest-mock", "typeguard")
-#     session.run("pytest", f"--typeguard-packages={package}", *args)
-
-
-# @nox.session(python=["3.8", "3.7"])
-# def xdoctest(session: Session) -> None:
-#     """Run examples with xdoctest."""
-#     args = session.posargs or ["all"]
-#     session.run("poetry", "install", "--no-dev", external=True)
-#     install_with_constraints(session, "xdoctest")
-#     session.run("python", "-m", "xdoctest", package, *args)
 
 
 @nox.session(python="3.8")
