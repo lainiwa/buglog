@@ -103,6 +103,7 @@ flake8-string-format          = { optional = true, version = "*" }  # Check .for
 flake8-tidy-imports           = { optional = true, version = "*" }
 flakehell                     = { optional = true, version = "*" }
 pep8-naming                   = { optional = true, version = "*" }  # Check naming conventions
+yamllint                      = { optional = true, version = "*" }
 # Extra: fmt
 autoflake              = { optional = true, version = "*" }
 black                  = { optional = true, version = "*" }
@@ -155,6 +156,7 @@ lint = [
   "flake8-tidy-imports",
   "flakehell",
   "pep8-naming",
+  "yamllint",
 ]
 fmt = [
   "autoflake",

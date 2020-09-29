@@ -288,6 +288,17 @@ python-versions = "*"
 flake8 = ">=3.6.0,<4.0.0"
 
 [[package]]
+name = "docformatter"
+version = "1.3.1"
+description = "Formats docstrings to follow PEP 257."
+category = "main"
+optional = true
+python-versions = "*"
+
+[package.dependencies]
+untokenize = "*"
+
+[[package]]
 name = "docutils"
 version = "0.16"
 description = "Docutils -- Python Documentation Utilities"
@@ -658,7 +669,7 @@ python-versions = "*"
 
 [[package]]
 name = "httpcore"
-version = "0.11.0"
+version = "0.11.1"
 description = "A minimal low-level HTTP client."
 category = "main"
 optional = false
@@ -1526,6 +1537,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "untokenize"
+version = "0.1.1"
+description = "Transforms tokens into original source code (while preserving whitespace)."
+category = "main"
+optional = true
+python-versions = "*"
+
+[[package]]
 name = "urllib3"
 version = "1.25.10"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -1583,6 +1602,18 @@ optional = false
 python-versions = ">=3.6,<4.0"
 
 [[package]]
+name = "yamllint"
+version = "1.24.2"
+description = "A linter for YAML files."
+category = "main"
+optional = true
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[package.dependencies]
+pathspec = ">=0.5.3"
+pyyaml = "*"
+
+[[package]]
 name = "zipp"
 version = "3.2.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -1596,14 +1627,14 @@ testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pyt
 
 [extras]
 docs = ["sphinx", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
-fmt = ["autoflake", "black", "pyupgrade", "reorder-python-imports"]
-lint = ["dlint", "flake8", "flake8-alfred", "flake8-annotations", "flake8-annotations-complexity", "flake8-bandit", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-executable", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-mutable", "flake8-pep3101", "flake8-pie", "flake8-print", "flake8-string-format", "flake8-tidy-imports", "flakehell", "pep8-naming"]
+fmt = ["autoflake", "black", "docformatter", "pyupgrade", "reorder-python-imports"]
+lint = ["dlint", "flake8", "flake8-alfred", "flake8-annotations", "flake8-annotations-complexity", "flake8-bandit", "flake8-broken-line", "flake8-bugbear", "flake8-builtins", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-debugger", "flake8-docstrings", "flake8-eradicate", "flake8-executable", "flake8-expression-complexity", "flake8-fixme", "flake8-functions", "flake8-mutable", "flake8-pep3101", "flake8-pie", "flake8-print", "flake8-string-format", "flake8-tidy-imports", "flakehell", "pep8-naming", "yamllint"]
 test = ["codecov", "coverage", "pytest", "pytest-cov", "pytest-mock"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<4.0"
-content-hash = "c05e09fbba5187c49eb7b09278c9866d3db4e1e9e19eb69df4590df2716292ce"
+content-hash = "6be6b871b166f02d1e42b58642f073642713aef2efb12a05d1265beec9d9db62"
 
 [metadata.files]
 alabaster = [
@@ -1745,6 +1776,9 @@ decorator = [
 dlint = [
     {file = "dlint-0.10.3-py2.py3-none-any.whl", hash = "sha256:62a187c71cd666bf5b0dbfa9543af62238a498c6d7f7188f6ad7b7d01c3ad49c"},
 ]
+docformatter = [
+    {file = "docformatter-1.3.1.tar.gz", hash = "sha256:d8db663665becccac75737b2635a06076f2c832bf861322a7bfc512f0a9fa7e3"},
+]
 docutils = [
     {file = "docutils-0.16-py2.py3-none-any.whl", hash = "sha256:0c5b78adfbf7762415433f5515cd5c9e762339e23369dbe8000d84a4bf4ab3af"},
     {file = "docutils-0.16.tar.gz", hash = "sha256:c2de3a60e9e7d07be26b7f2b00ca0309c207e06c100f9cc2a94931fc75a478fc"},
@@ -1867,8 +1901,8 @@ h11 = [
     {file = "h11-0.9.0.tar.gz", hash = "sha256:33d4bca7be0fa039f4e84d50ab00531047e53d6ee8ffbc83501ea602c169cae1"},
 ]
 httpcore = [
-    {file = "httpcore-0.11.0-py3-none-any.whl", hash = "sha256:7a6804b18e1b8fc61ec4df868cb5c679d225fffbb81e48455ee9b57792cc3ac6"},
-    {file = "httpcore-0.11.0.tar.gz", hash = "sha256:35ffc735d746b83f8fc6d36f82600e56117b9e8adc65d0c0423264b6ebfef7bf"},
+    {file = "httpcore-0.11.1-py3-none-any.whl", hash = "sha256:72cfaa461dbdc262943ff4c9abf5b195391a03cdcc152e636adb4239b15e77e1"},
+    {file = "httpcore-0.11.1.tar.gz", hash = "sha256:a35dddd1f4cc34ff37788337ef507c0ad0276241ece6daf663ac9e77c0b87232"},
 ]
 httpx = [
     {file = "httpx-0.15.4-py3-none-any.whl", hash = "sha256:7b3c07bfdcdadd92020dd4c07b15932abdcf1c898422a4e98de3d19b2223310b"},
@@ -2284,6 +2318,9 @@ typing-extensions = [
     {file = "typing_extensions-3.7.4.3-py3-none-any.whl", hash = "sha256:7cb407020f00f7bfc3cb3e7881628838e69d8f3fcab2f64742a5e76b2f841918"},
     {file = "typing_extensions-3.7.4.3.tar.gz", hash = "sha256:99d4073b617d30288f569d3f13d2bd7548c3a7e4c8de87db09a9d29bb3a4a60c"},
 ]
+untokenize = [
+    {file = "untokenize-0.1.1.tar.gz", hash = "sha256:3865dbbbb8efb4bb5eaa72f1be7f3e0be00ea8b7f125c69cbd1f5fda926f37a2"},
+]
 urllib3 = [
     {file = "urllib3-1.25.10-py2.py3-none-any.whl", hash = "sha256:e7983572181f5e1522d9c98453462384ee92a0be7fac5f1413a1e35c56cc0461"},
     {file = "urllib3-1.25.10.tar.gz", hash = "sha256:91056c15fa70756691db97756772bb1eb9678fa585d9184f24534b100dc60f4a"},
@@ -2306,6 +2343,10 @@ wrapt = [
 xdg = [
     {file = "xdg-4.0.1-py3-none-any.whl", hash = "sha256:bf9032b027e3061d38c362a21b14dcf057a5b5a4906956f8e8278cefdf73f38b"},
     {file = "xdg-4.0.1.tar.gz", hash = "sha256:c939c99def394cbaf765a3ee55efd6ea7e4c5eaed8d9ebc2d03af84ba35dec57"},
+]
+yamllint = [
+    {file = "yamllint-1.24.2-py2.py3-none-any.whl", hash = "sha256:ad3b0d30317dca005d7af99ff27248d459cae2d931a2ff06a134b67bcd405b30"},
+    {file = "yamllint-1.24.2.tar.gz", hash = "sha256:40b68de6bacdccec1585dbd54072731b10da7fc2f9cfd96517a71f066208b61f"},
 ]
 zipp = [
     {file = "zipp-3.2.0-py3-none-any.whl", hash = "sha256:43f4fa8d8bb313e65d8323a3952ef8756bf40f9a5c3ea7334be23ee4ec8278b6"},

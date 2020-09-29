@@ -1,3 +1,4 @@
+---
 version: 2
 
 sphinx:
@@ -10,4 +11,3 @@ python:
       path: .
       extra_requirements:
         - docs
-
