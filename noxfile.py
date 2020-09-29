@@ -114,6 +114,15 @@ def black(session: Session) -> None:
 
 
 @nox.session(python="3.8")
+def docformatter(session: Session) -> None:
+    """Run black code formatter."""
+    args = session.posargs or locations
+    with all_constraints_file() as reqs_path:
+        session.install(f"--constraint={reqs_path}", "docformatter")
+        session.run("docformatter", *args)
+
+
+@nox.session(python="3.8")
 def autoflake(session: Session) -> None:
     """Upgrade syntax to newer versions."""
     with all_constraints_file() as reqs_path:
