@@ -38,9 +38,6 @@ no_accept_encodings = true
 # flake8-expression-complexity
 max_expression_complexity = 7
 
-[tool.flakehell.exceptions."**/data/config.py"]
-"flake8-*" = ["-*"]
-
 [tool.flakehell.plugins]
 # Enable all first
 dlint      = ["+*"]
@@ -51,11 +48,20 @@ flake8-bandit = ["+*",
   "-S101",  # Use of assert detected
   "-S404",  # Consider possible security implications associated with CalledProcessError module
   "-S603",  # Subprocess call - check for execution of untrusted input
+  "-S607",  # Starting a process with a partial executable path
 ]
 flake8-cognitive-complexity = ["-*"]
 flake8-docstrings = ["-*"]
 flake8-print = ["-*"]
 mccabe = ["-*"]
+
+[tool.flakehell.exceptions."docs/conf.py"]
+"flake8-builtins" = ["+*",
+  "-A001",  # Variable is shadowing a python builtin
+]
+
+[tool.flakehell.exceptions."**/data/config.py"]
+"flake8-*" = ["-*"]
 
 
 [tool.poetry]
@@ -187,7 +193,6 @@ bug = 'buglog.cli:main'
 addopts = '''
   --doctest-modules
   --verbose
-  -m 'not slow'
   --cov=buglog
   --cov-report=html
 '''
