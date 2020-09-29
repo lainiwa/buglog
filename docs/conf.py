@@ -60,8 +60,8 @@ html_static_path = ["_static"]
 
 # View page source --> Edit on GitHub
 html_context = {
-  'display_github': True,
-  'github_user': 'lainiwa',
-  'github_repo': 'buglog',
-  'github_version': 'master/docs/',
+    "display_github": True,
+    "github_user": "lainiwa",
+    "github_repo": "buglog",
+    "github_version": "master/docs/",
 }
