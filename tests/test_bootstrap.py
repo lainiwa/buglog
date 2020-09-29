@@ -3,27 +3,28 @@ from pathlib import Path
 import os
 
 import pytest
-from _pytest.monkeypatch import MonkeyPatch
+from typing import Dict
+
+import buglog
+from buglog.bootstrap import ensure_fzf, ensure_config
 
 
 @pytest.mark.slow
-def test_ensure_fzf(monkeypatch: MonkeyPatch, tmp_path: Path) -> None:
-    # Variables
-    data_home = tmp_path / ".local/share"
-    fzf_path = data_home / "buglog/fzf"
-    expected_hash = (
-        "755354b590c9d4c75b8a2e27374bfa1f02d3eb7a73c94ed43b17ac36aa73dede"
-    )
-    # Call ensure_fzf() with alternated XDG_DATA_HOME
-    monkeypatch.setattr("buglog.bootstrap.XDG_DATA_HOME", data_home)
-    from buglog.bootstrap import ensure_fzf
+def test_ensure_fzf(mock_xdg: Dict[str, Path]) -> None:
+    fzf_path = mock_xdg["XDG_DATA_HOME"] / "buglog" / "fzf"
 
+    # Make sure we do not have the fzf file yet
+    assert not fzf_path.is_file()
+
+    # Check calling ensure_fzf() creates a correct fzf file
     ensure_fzf()
-    # Check fzf was created
     assert fzf_path.is_file()
-    # Check fzf's checksum
+
     with open(fzf_path, "rb") as fzf_file:
         readable_hash = sha256(fzf_file.read()).hexdigest()
+        expected_hash = (
+            "755354b590c9d4c75b8a2e27374bfa1f02d3eb7a73c94ed43b17ac36aa73dede"
+        )
         assert readable_hash == expected_hash
 
     # Clear fzf file's contents
@@ -33,22 +34,18 @@ def test_ensure_fzf(monkeypatch: MonkeyPatch, tmp_path: Path) -> None:
     assert os.stat(fzf_path).st_size == 0
 
 
-def test_ensure_config(monkeypatch: MonkeyPatch, tmp_path: Path) -> None:
-    # Variables
-    config_home = tmp_path / ".config"
-    config_path = config_home / "buglog/config.py"
-    # Call ensure_config() with alternated XDG_CONFIG_HOME
-    monkeypatch.setattr("buglog.bootstrap.XDG_CONFIG_HOME", config_home)
-    from buglog.bootstrap import ensure_config
+def test_ensure_config(mock_xdg: Dict[str, Path]) -> None:
+    config_path = mock_xdg["XDG_CONFIG_HOME"] / "buglog" / "config.py"
 
+    # Make sure we do not have the config file bootstrapped yet
+    assert not config_path.is_file()
+
+    # Check calling ensure_config() creates a correct fzf file
     ensure_config()
-    # Check config was copied was created
-    assert config_path.is_file()
-    # Get original config file's contents
-    import buglog
 
+    # Get original config file's contents
     with open(
-        Path(buglog.__file__).parents[0] / "data/config.py", "rb"
+        Path(buglog.__file__).parents[0] / "data" / "config.py", "rb"
     ) as orig_conf:
         orig_content = orig_conf.read()
     # Get copied file's contents
@@ -56,3 +53,9 @@ def test_ensure_config(monkeypatch: MonkeyPatch, tmp_path: Path) -> None:
         copied_content = copied_conf.read()
     # Check the content is the same
     assert orig_content == copied_content
+
+    # Clear config file's contents
+    open(config_path, "w").close()
+    # Call ensure_config again and check it would not bootstrap config again
+    ensure_config()
+    assert os.stat(config_path).st_size == 0
