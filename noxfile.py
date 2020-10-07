@@ -155,13 +155,13 @@ def lint(session: Session) -> None:
             "--format",
             "parsable",
             "--strict",
-            ".github",
+            ".github/",
             ".readthedocs.yml",
         )
         session.run(
             "dead", "--exclude", "(data/config.py$|^docs|^noxfile.py$)"
         )
-        # session.run("vulture", "src", "tests", "--exclude", "data/config.py")
+        # poetry run vulture src tests --exclude 'data/config.py'
 
 
 # @nox.session(python=["3.8", "3.7"])
