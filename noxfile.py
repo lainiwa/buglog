@@ -1,10 +1,8 @@
 """Nox sessions."""
-import itertools
 import os
 import tempfile
 from contextlib import contextmanager
 from functools import lru_cache
-from glob import glob
 from typing import Any, ContextManager, Iterator
 import subprocess
 
@@ -38,14 +36,6 @@ locations = (
     "noxfile.py",
     "docs/conf.py",
 )
-
-py_files = [
-    os.path.abspath(file)
-    for file in itertools.chain.from_iterable(
-        glob(f"{loc}/**/*.py", recursive=True) if os.path.isdir(loc) else [loc]
-        for loc in locations
-    )
-]
 
 
 @lru_cache()
@@ -168,6 +158,10 @@ def lint(session: Session) -> None:
             ".github",
             ".readthedocs.yml",
         )
+        session.run(
+            "dead", "--exclude", "(data/config.py$|^docs|^noxfile.py$)"
+        )
+        # session.run("vulture", "src", "tests", "--exclude", "data/config.py")
 
 
 # @nox.session(python=["3.8", "3.7"])

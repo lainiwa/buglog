@@ -42,6 +42,8 @@ max_expression_complexity = 7
 # Enable all first
 dlint      = ["+*"]
 pyflakes   = ["+*"]
+# pylint     = ["+*"]
+pep8-naming = ["+*"]
 "flake8-*" = ["+*"]
 # Then disable some
 flake8-bandit = ["+*",
@@ -62,6 +64,7 @@ mccabe = ["-*"]
 
 [tool.flakehell.exceptions."**/data/config.py"]
 "flake8-*" = ["-*"]
+"pep8-naming" = ["-*"]
 
 
 [tool.poetry]
@@ -71,7 +74,7 @@ name = "buglog"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
-python         = ">=3.7,<4.0"
+python         = ">=3.7,<3.9"
 beautifulsoup4 = "*"
 blessings      = "*"
 click          = "*"
@@ -83,6 +86,7 @@ xdg            = "*"
 timefhuman = { git = "https://github.com/alvinwan/timefhuman", rev = "ae31f38" }
 pydantic = { version = "*", extras = ["typing_extensions"] }
 # Extra: lint
+dead                          = { optional = true, version = "*" }
 dlint                         = { optional = true, version = "*" }  # Encourage best practices + security
 flake8                        = { optional = true, version = "*" }
 flake8-alfred                 = { optional = true, version = "*" }  # Check for unsafe/obsolete symbols
@@ -137,6 +141,7 @@ restview   = "*"
 
 [tool.poetry.extras]
 lint = [
+  "dead",
   "dlint",
   "flake8",
   "flake8-alfred",
