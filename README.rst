@@ -11,6 +11,10 @@
    :target: https://codeclimate.com/github/lainiwa/buglog/maintainability
    :alt: Maintainability
 
+.. image:: https://readthedocs.org/projects/buglog/badge/?version=latest
+   :target: https://buglog.readthedocs.io/en/latest/?badge=latest
+   :alt: Docs
+
 ===============================
 BUGlog - log what's bugging you
 ===============================
