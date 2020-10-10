@@ -4,6 +4,8 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+from buglog import __version__
+
 
 # -- Project information -----------------------------------------------------
 
@@ -11,8 +13,10 @@ project = "Buglog"
 author = "Lain Iwakura"
 copyright = f"2020, {author}"
 
-# The full version, including alpha/beta/rc tags
-release = "0.1.0"
+# The short X.Y version.
+version = __version__
+# The full version, including alpha/beta/rc tags.
+release = version
 
 
 # -- General configuration ---------------------------------------------------

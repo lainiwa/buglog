@@ -195,6 +195,7 @@ bug = 'buglog.cli:main'
 
 
 [tool.pytest.ini_options]
+norecursedirs = ['docs', '.*']
 addopts = '''
   --doctest-modules
   --verbose
