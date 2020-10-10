@@ -39,6 +39,7 @@ MANIFEST.in
 .pytype
 node_modules
 
+.venv
 venv
 /releases/*
 pip-wheel-metadata
