@@ -7,7 +7,6 @@ BugLog - log what's bugging you
    :maxdepth: 1
 
    reference
-   license
 
 This TUI task tracker is meant to be used as
 
